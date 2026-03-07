@@ -5,6 +5,9 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <time.h>
 
 # define WIDTH 800
 # define HEIGHT 600
@@ -18,7 +21,7 @@
 # define ZOOM_OUT 5
 
 /* defines*/
-# define MAX_ITER 100
+# define MAX_ITER 2048
 
 typedef struct s_img
 {
@@ -39,12 +42,22 @@ typedef struct s_fractol
 	double	max_r;
 	double	min_i;
 	double	max_i;
+	double  julia_cr;
+	double  julia_ci;
 
 	int		r_mult;
 	int		g_mult;
 	int		b_mult;
+	int		is_julia;
 
 }			t_fractol;
+
+typedef struct s_colour
+{
+	int		r;
+	int		g;
+	int		b;
+}				t_colour;
 
 /* init */
 void		init_fractol(t_fractol *f);
@@ -62,5 +75,13 @@ int			mouse_hook(int button, int x, int y, t_fractol *f);
 
 /* mandelbrot */
 void		draw_mandelbrot(t_fractol *f);
+
+/* julia */
+void		draw_julia(t_fractol *f);
+int			get_color(double smooth_iter, t_fractol *f);
+
+/* utils */
+t_colour 	interpolate(t_colour c1, t_colour c2, double t);
+int 		rgb_to_int(t_colour c);
 
 #endif

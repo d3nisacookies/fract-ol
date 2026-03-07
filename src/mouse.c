@@ -18,6 +18,13 @@ int	mouse_hook(int button, int x, int y, t_fractol *f)
 	f->max_r = cr + (f->max_r - cr) * zoom;
 	f->min_i = ci + (f->min_i - ci) * zoom;
 	f->max_i = ci + (f->max_i - ci) * zoom;
-	draw_mandelbrot(f);
+	if (f->is_julia)
+	{
+		draw_julia(f);
+	}
+	else 
+	{
+		draw_mandelbrot(f);
+	}
 	return (0);
 }

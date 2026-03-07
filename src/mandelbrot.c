@@ -34,18 +34,57 @@ static double	mandelbrot(double cr, double ci)
 	return (i + 1 - log(log(sqrt(zr * zr + zi * zi))) / log(2.0));
 }
 
-int	get_color(double smooth_iter, t_fractol *f)
+static t_colour	get_gradient_colors(double t, t_colour *c1, t_colour *c2)
 {
-	int	r;
-	int	g;
-	int	b;
+	if (t < 0.25)
+	{
+		*c1 = (t_colour){50, 50, 150};
+		*c2 = (t_colour){0, 200, 255};
+		return (interpolate(*c1, *c2, t / 0.25));
+	}
+	else if (t < 0.5)
+	{
+		*c1 = (t_colour){0, 200, 255};
+		*c2 = (t_colour){150, 255, 150};
+		return (interpolate(*c1, *c2, (t - 0.25) / 0.25));
+	}
+	else if (t < 0.75)
+	{
+		*c1 = (t_colour){150, 255, 150};
+		*c2 = (t_colour){255, 200, 100};
+		return (interpolate(*c1, *c2, (t - 0.5) / 0.25));
+	}
+	else
+	{
+		*c1 = (t_colour){255, 200, 100};
+		*c2 = (t_colour){255, 255, 255};
+		return (interpolate(*c1, *c2, (t - 0.75) / 0.25));
+	}
+}
 
-	if (smooth_iter >= MAX_ITER)
-		return (0x000000);
-	r = (int)(smooth_iter * f->r_mult) % 256;
-	g = (int)(smooth_iter * f->g_mult) % 256;
-	b = (int)(smooth_iter * f->b_mult) % 256;
-	return ((r << 16) | (g << 8) | b);
+static t_colour	apply_color_multipliers(t_colour color, t_fractol *f)
+{
+	color.r = (color.r * f->r_mult) / 256;
+	color.g = (color.g * f->g_mult) / 256;
+	color.b = (color.b * f->b_mult) / 256;
+	return (color);
+}
+
+int get_color(double iter, t_fractol *f)
+{
+    double      t;
+    t_colour     c1;
+    t_colour     c2;
+    t_colour     final;
+
+    if (iter == MAX_ITER)
+        return (0x000000);
+
+    t = iter / MAX_ITER;
+    final = get_gradient_colors(t, &c1, &c2);
+    final = apply_color_multipliers(final, f);
+    
+    return (rgb_to_int(final));
 }
 
 void	draw_mandelbrot(t_fractol *f)
