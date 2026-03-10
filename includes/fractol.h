@@ -1,27 +1,27 @@
 #ifndef FRACTOL_H
-# define FRACTOL_H
+#define FRACTOL_H
 
-# include "mlx.h"
-# include <math.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <time.h>
+#include "mlx.h"
+#include <math.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+#define WIDTH 800
+#define HEIGHT 600
 
 /* colors */
-# define BLACK 0x000000
-# define WHITE 0xFFFFFF
+#define BLACK 0x000000
+#define WHITE 0xFFFFFF
 
 /* mouse */
-# define ZOOM_IN 4
-# define ZOOM_OUT 5
+#define ZOOM_IN 4
+#define ZOOM_OUT 5
 
 /* defines*/
-# define MAX_ITER 2048
+#define MAX_ITER 2048
 
 typedef struct s_img
 {
@@ -57,7 +57,7 @@ typedef struct s_colour
 	int		r;
 	int		g;
 	int		b;
-}				t_colour;
+}			t_colour;
 
 /* init */
 void		init_fractol(t_fractol *f);

@@ -1,5 +1,6 @@
 #include "../includes/fractol.h"
 #include <time.h>
+#include <string.h>
 
 void	init_fractol(t_fractol *f)
 {
@@ -8,6 +9,7 @@ void	init_fractol(t_fractol *f)
 	f->img.img = mlx_new_image(f->mlx, WIDTH, HEIGHT);
 	f->img.addr = mlx_get_data_addr(f->img.img, &f->img.bpp, &f->img.line_len,
 			&f->img.endian);
+	memset(f->img.addr, 0, HEIGHT * f->img.line_len);  // Initialize image buffer
 	f->min_r = -2.0;
 	f->max_r = 2.0;
 	f->min_i = -2.0;
