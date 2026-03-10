@@ -49,7 +49,6 @@ typedef struct s_fractol
 	int		g_mult;
 	int		b_mult;
 	int		is_julia;
-
 }			t_fractol;
 
 typedef struct s_colour
@@ -83,5 +82,8 @@ int			get_color(double smooth_iter, t_fractol *f);
 /* utils */
 t_colour 	interpolate(t_colour c1, t_colour c2, double t);
 int 		rgb_to_int(t_colour c);
+
+/* color helpers */
+t_colour	hsv_to_rgb(double h, double s, double v);
 
 #endif

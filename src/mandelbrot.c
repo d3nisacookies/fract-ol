@@ -22,33 +22,7 @@ static double	mandelbrot(double cr, double ci)
 	return (i + 1 - log(log(sqrt(zr * zr + zi * zi))) / log(2.0));
 }
 
-static t_colour	get_gradient_colors(double t, t_colour *c1, t_colour *c2)
-{
-	if (t < 0.25)
-	{
-		*c1 = (t_colour){50, 50, 150};
-		*c2 = (t_colour){0, 200, 255};
-		return (interpolate(*c1, *c2, t / 0.25));
-	}
-	else if (t < 0.5)
-	{
-		*c1 = (t_colour){0, 200, 255};
-		*c2 = (t_colour){150, 255, 150};
-		return (interpolate(*c1, *c2, (t - 0.25) / 0.25));
-	}
-	else if (t < 0.75)
-	{
-		*c1 = (t_colour){150, 255, 150};
-		*c2 = (t_colour){255, 200, 100};
-		return (interpolate(*c1, *c2, (t - 0.5) / 0.25));
-	}
-	else
-	{
-		*c1 = (t_colour){255, 200, 100};
-		*c2 = (t_colour){255, 255, 255};
-		return (interpolate(*c1, *c2, (t - 0.75) / 0.25));
-	}
-}
+
 
 static t_colour	apply_color_multipliers(t_colour color, t_fractol *f)
 {
@@ -60,19 +34,28 @@ static t_colour	apply_color_multipliers(t_colour color, t_fractol *f)
 
 int get_color(double iter, t_fractol *f)
 {
-    double      t;
-    t_colour     c1;
-    t_colour     c2;
-    t_colour     final;
+	double t;
+	double hue, sat, val;
+	t_colour color;
 
-    if (iter == MAX_ITER)
-        return (0x000000);
+	if (iter == MAX_ITER)
+		return (BLACK);
 
-    t = iter / MAX_ITER;
-    final = get_gradient_colors(t, &c1, &c2);
-    final = apply_color_multipliers(final, f);
-    
-    return (rgb_to_int(final));
+	/* normalise iteration count */
+	t = iter / MAX_ITER;
+
+	/* hue cycles through spectrum but slower for realistic look */
+	hue = 360.0 * sqrt(t);
+
+	/* saturation varies so edges are more washed out */
+	sat = 0.5 + 0.5 * t;
+
+	/* value decreases with t for darker interiors */
+	val = 1.0 - 0.5 * t;
+
+	color = hsv_to_rgb(hue, sat, val);
+	color = apply_color_multipliers(color, f);
+	return (rgb_to_int(color));
 }
 
 void	draw_mandelbrot(t_fractol *f)
