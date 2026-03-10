@@ -1,3 +1,4 @@
+*This project has been written by akaung from the 42 cursus*
 # Fractol - Fractal Renderer
 
 A C program that renders the Mandelbrot and Julia fractals using the MiniLibX graphics library.
@@ -40,8 +41,8 @@ Where:
 
 Example:
 ```bash
-./fractol julia -0.7 0.27015
-./fractol julia -0.5 0.5
+./fractol julia -0.7 0.27015 # for cool julia
+./fractol julia -0.8 0.156 # for cooler cloud julia
 ```
 
 ## Controls
@@ -108,4 +109,3 @@ Usage: ./fractol mandelbrot
 Usage: ./fractol julia <cr> <ci>
 ```
 
-*This project has been written by akaung from the 42 cursus*
