@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 15:05:13 by akaung            #+#    #+#             */
+/*   Updated: 2026/03/18 15:05:14 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fractol.h"
 
 static void	print_usage(void)
@@ -34,7 +46,7 @@ static int	handle_fractol(char **av, int ac, t_fractol *f)
 
 int	main(int ac, char **av)
 {
-	t_fractol f;
+	t_fractol	f;
 
 	if (ac < 2)
 		return (print_usage(), 1);

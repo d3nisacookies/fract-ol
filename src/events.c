@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 15:03:17 by akaung            #+#    #+#             */
+/*   Updated: 2026/03/18 15:03:37 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fractol.h"
 
 int	close_window(t_fractol *f)
@@ -22,7 +34,7 @@ int	key_hook(int keycode, t_fractol *f)
 		{
 			draw_julia(f);
 		}
-		else 
+		else
 		{
 			draw_mandelbrot(f);
 		}

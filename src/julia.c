@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   julia.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 15:04:08 by akaung            #+#    #+#             */
+/*   Updated: 2026/03/18 15:04:08 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fractol.h"
 
-static double julia(double zr, double zi, t_fractol *f)
+static double	julia(double zr, double zi, t_fractol *f)
 {
-	double tmp;
-	int i;
+	double	tmp;
+	int		i;
 
 	i = 0;
 	while (zr * zr + zi * zi <= 4 && i < MAX_ITER)
@@ -20,7 +32,7 @@ static double julia(double zr, double zi, t_fractol *f)
 	return (i + 1 - log(log(sqrt(zr * zr + zi * zi))) / log(2.0));
 }
 
-void draw_julia(t_fractol *f)
+void	draw_julia(t_fractol *f)
 {
 	int		x;
 	int		y;
@@ -36,7 +48,6 @@ void draw_julia(t_fractol *f)
 		{
 			zr = f->min_r + (x / (double)WIDTH) * (f->max_r - f->min_r);
 			zi = f->max_i - (y / (double)HEIGHT) * (f->max_i - f->min_i);
-
 			smooth = julia(zr, zi, f);
 			put_pixel(&f->img, x, y, get_color(smooth, f));
 			x++;

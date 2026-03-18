@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 15:08:34 by akaung            #+#    #+#             */
+/*   Updated: 2026/03/18 15:09:08 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fractol.h"
 
 int	mouse_hook(int button, int x, int y, t_fractol *f)
@@ -22,7 +34,7 @@ int	mouse_hook(int button, int x, int y, t_fractol *f)
 	{
 		draw_julia(f);
 	}
-	else 
+	else
 	{
 		draw_mandelbrot(f);
 	}
