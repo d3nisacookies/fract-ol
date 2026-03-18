@@ -22,38 +22,71 @@ t_colour	interpolate(t_colour c1, t_colour c2, double t)
 	return (result);
 }
 
+static t_colour	rgb_low(double h, double c, double x, double m)
+{
+	t_colour	res;
+
+	if (h < 60)
+	{
+		res.r = (int)((c + m) * 255);
+		res.g = (int)((x + m) * 255);
+		res.b = (int)(m * 255);
+	}
+	else if (h < 120)
+	{
+		res.r = (int)((x + m) * 255);
+		res.g = (int)((c + m) * 255);
+		res.b = (int)(m * 255);
+	}
+	else
+	{
+		res.r = (int)(m * 255);
+		res.g = (int)((c + m) * 255);
+		res.b = (int)((x + m) * 255);
+	}
+	return (res);
+}
+
+static t_colour	rgb_high(double h, double c, double x, double m)
+{
+	t_colour	res;
+
+	if (h < 240)
+	{
+		res.r = (int)(m * 255);
+		res.g = (int)((x + m) * 255);
+		res.b = (int)((c + m) * 255);
+	}
+	else if (h < 300)
+	{
+		res.r = (int)((x + m) * 255);
+		res.g = (int)(m * 255);
+		res.b = (int)((c + m) * 255);
+	}
+	else
+	{
+		res.r = (int)((c + m) * 255);
+		res.g = (int)(m * 255);
+		res.b = (int)((x + m) * 255);
+	}
+	return (res);
+}
+
 t_colour	hsv_to_rgb(double h, double s, double v)
 {
 	double		c;
 	double		x;
 	double		m;
-	double		r1;
-	double		g1;
-	double		b1;
-	t_colour		res;
 
 	c = v * s;
-	x = c * (1 - fabs(fmod(h / 60.0,2) - 1));
+	x = c * (1 - fabs(fmod(h / 60.0, 2) - 1));
 	m = v - c;
-	if (h < 60)
-		{ r1 = c; g1 = x; b1 = 0; }
-	else if (h < 120)
-		{ r1 = x; g1 = c; b1 = 0; }
-	else if (h < 180)
-		{ r1 = 0; g1 = c; b1 = x; }
-	else if (h < 240)
-		{ r1 = 0; g1 = x; b1 = c; }
-	else if (h < 300)
-		{ r1 = x; g1 = 0; b1 = c; }
-	else
-		{ r1 = c; g1 = 0; b1 = x; }
-	res.r = (int)((r1 + m) * 255);
-	res.g = (int)((g1 + m) * 255);
-	res.b = (int)((b1 + m) * 255);
-	return (res);
+	if (h < 180)
+		return (rgb_low(h, c, x, m));
+	return (rgb_high(h, c, x, m));
 }
 
-int rgb_to_int(t_colour c)
+int	rgb_to_int(t_colour c)
 {
 	return ((c.r << 16) | (c.g << 8) | c.b);
 }
