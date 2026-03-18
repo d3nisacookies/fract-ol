@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 static double	mandelbrot(double cr, double ci)
 {
@@ -22,7 +22,7 @@ static double	mandelbrot(double cr, double ci)
 	zr = 0;
 	zi = 0;
 	i = 0;
-	while (zr * zr + zi * zi + i < MAX_ITER)
+	while (zr * zr + zi * zi <= 4 && i < MAX_ITER)
 	{
 		tmp = zr * zr - zi * zi + cr;
 		zi = 2 * zr * zi + ci;
