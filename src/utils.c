@@ -24,12 +24,13 @@ t_colour	interpolate(t_colour c1, t_colour c2, double t)
 
 t_colour	hsv_to_rgb(double h, double s, double v)
 {
-	double	c;
-	double	x;
-	double	m;
-	double	r1;
-	double	g1;
-	double	b1;
+	double		c;
+	double		x;
+	double		m;
+	double		r1;
+	double		g1;
+	double		b1;
+	t_colour		res;
 
 	c = v * s;
 	x = c * (1 - fabs(fmod(h / 60.0,2) - 1));
@@ -46,7 +47,6 @@ t_colour	hsv_to_rgb(double h, double s, double v)
 		{ r1 = x; g1 = 0; b1 = c; }
 	else
 		{ r1 = c; g1 = 0; b1 = x; }
-	t_colour res;
 	res.r = (int)((r1 + m) * 255);
 	res.g = (int)((g1 + m) * 255);
 	res.b = (int)((b1 + m) * 255);
