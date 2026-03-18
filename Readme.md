@@ -1,5 +1,5 @@
 *This project has been written by akaung from the 42 cursus*
-# Fractol - Fractal Renderer
+# Fractol - Description
 
 A C program that renders the Mandelbrot and Julia fractals using the MiniLibX graphics library.
 
