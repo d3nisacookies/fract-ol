@@ -33,7 +33,7 @@
 # define ZOOM_OUT 5
 
 /* defines*/
-# define MAX_ITER 2048
+# define MAX_ITER 100
 
 typedef struct s_img
 {

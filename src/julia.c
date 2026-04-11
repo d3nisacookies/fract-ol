@@ -14,22 +14,24 @@
 
 static double	julia(double zr, double zi, t_fractol *f)
 {
-	double	tmp;
+	double	zr2;
+	double	zi2;
 	int		i;
 
+	zr2 = zr * zr;
+	zi2 = zi * zi;
 	i = 0;
-	while (zr * zr + zi * zi <= 4 && i < MAX_ITER)
+	while (zr2 + zi2 <= 4 && i < MAX_ITER)
 	{
-		tmp = zr * zr - zi * zi + f->julia_cr;
 		zi = 2 * zr * zi + f->julia_ci;
-		zr = tmp;
+		zr = zr2 - zi2 + f->julia_cr;
+		zr2 = zr * zr;
+		zi2 = zi * zi;
 		i++;
 	}
 	if (i == MAX_ITER)
-	{
 		return (MAX_ITER);
-	}
-	return (i + 1 - log(log(sqrt(zr * zr + zi * zi))) / log(2.0));
+	return (i + 1 - log(0.5 * log(zr2 + zi2)) / log(2.0));
 }
 
 void	draw_julia(t_fractol *f)

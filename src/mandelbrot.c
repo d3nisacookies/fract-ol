@@ -16,22 +16,26 @@ static double	mandelbrot(double cr, double ci)
 {
 	double	zr;
 	double	zi;
-	double	tmp;
-	double	i;
+	double	zr2;
+	double	zi2;
+	int		i;
 
 	zr = 0;
 	zi = 0;
+	zr2 = 0;
+	zi2 = 0;
 	i = 0;
-	while (zr * zr + zi * zi <= 4 && i < MAX_ITER)
+	while (zr2 + zi2 <= 4 && i < MAX_ITER)
 	{
-		tmp = zr * zr - zi * zi + cr;
 		zi = 2 * zr * zi + ci;
-		zr = tmp;
+		zr = zr2 - zi2 + cr;
+		zr2 = zr * zr;
+		zi2 = zi * zi;
 		i++;
 	}
 	if (i == MAX_ITER)
 		return (MAX_ITER);
-	return (i + 1 - log(log(sqrt(zr * zr + zi * zi))) / log(2.0));
+	return (i + 1 - log(0.5 * log(zr2 + zi2)) / log(2.0));
 }
 
 static t_colour	apply_color_multipliers(t_colour color, t_fractol *f)
