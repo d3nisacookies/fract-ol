@@ -6,7 +6,10 @@ CFLAGS	= -Wall -Wextra -Werror
 MLX_DIR	= mlx
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-INCLUDES = -Iincludes -I$(MLX_DIR)
+LIBFT_DIR = libft
+LIBFT_A = $(LIBFT_DIR)/libft.a
+
+INCLUDES = -Iincludes -I$(MLX_DIR) -I$(LIBFT_DIR)
 
 SRC_DIR	= src
 
@@ -23,19 +26,23 @@ OBJS	= $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT_A)
 	$(MAKE) -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) $(MLX_FLAGS) -o $(NAME)
+
+$(LIBFT_A):
+	$(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(MAKE) clean -C $(MLX_DIR)
+	$(MAKE) clean -C $(LIBFT_DIR)
 	rm -f $(OBJS)
 
 fclean: clean
-	$(MAKE) clean -C $(MLX_DIR)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -f $(NAME)
 
 re: fclean all

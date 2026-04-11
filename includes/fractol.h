@@ -14,11 +14,11 @@
 # define FRACTOL_H
 
 # include "mlx.h"
+# include "libft.h"
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <string.h>
 # include <time.h>
 
 # define WIDTH 800

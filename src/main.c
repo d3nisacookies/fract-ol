@@ -33,9 +33,9 @@ static int	handle_fractol(char **av, int ac, t_fractol *f)
 {
 	srand(time(NULL));
 	init_fractol(f);
-	if (!strncmp(av[1], "julia", 5))
+	if (!ft_strncmp(av[1], "julia", 5))
 		return (handle_julia(av, ac, f));
-	if (!strncmp(av[1], "mandelbrot", 10))
+	if (!ft_strncmp(av[1], "mandelbrot", 10))
 	{
 		f->is_julia = 0;
 		draw_mandelbrot(f);
