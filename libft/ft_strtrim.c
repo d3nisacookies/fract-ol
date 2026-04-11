@@ -1,71 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/19 21:13:30 by akaung            #+#    #+#             */
+/*   Updated: 2025/11/21 21:33:35 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-// Change parameter to const char*
-static int to_trim(const char *set, char c)
+static int	to_trim(const char *set, char c)
 {
-    size_t i;
-    i = 0;
+	size_t	i;
 
-    while(set[i])
-    {
-        if (c == set[i])
-            return 1;
-        i++;
-    }
-    return 0;
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-// Change return type to char* (not const char*)
-static char *new_str(const char *s1, size_t start, size_t len)
+char	*ft_strtrim(const char *s1, const char *set)
 {
-    char *str;
-    size_t i;
+	size_t	start;
+	size_t	end;
+	char	*res;
+	size_t	len;
 
-    if(len <= 0 || start >= ft_strlen(s1))
-    {
-        return(ft_strdup(""));
-    }
-    str = ft_calloc(len + 1, sizeof(char));
-    if (!str)
-    {
-        return NULL;
-    }
-    i = 0;
-    while(i < len)
-    {
-        str[i] = s1[start + i];
-        i++;
-    }
-    return (str);
+	if (!s1 || !set)
+		return (NULL);
+	start = 0;
+	end = ft_strlen(s1);
+	if (end == 0)
+		return (ft_strdup(""));
+	end--;
+	while (start <= end && to_trim(set, s1[start]))
+		start++;
+	while (end >= start && to_trim(set, s1[end]))
+		end--;
+	len = 0;
+	if (start <= end)
+		len = (end - start + 1);
+	res = malloc(len + 1);
+	if (!res)
+		return (NULL);
+	ft_strlcpy(res, s1 + start, len + 1);
+	return (res);
 }
 
-char *ft_strtrim(const char *s1, const char *set)
-{
-    size_t i;
-    size_t j;
-    size_t s1_len;
+// #include "libft.h"
+// #include <stdio.h>
+// #include <stdlib.h>
 
-    if (!s1 || !set)
-        return (NULL);
-        
-    s1_len = ft_strlen(s1);
-    if (s1_len == 0)
-    {
-        return (ft_strdup(""));
-    }
-    
-    i = 0;
-    j = s1_len - 1;
+// int	main(void)
+// {
+// 	char *s1;
+// 	char *set;
+// 	char *res;
 
-    while (to_trim((const char *)set, s1[i]))  // Cast to fix const issue
-        i++;
-        
-    // Check if entire string was trimmed
-    if (i > j)
-        return (ft_strdup(""));
-        
-    while (to_trim((const char *)set, s1[j]))  // Cast to fix const issue
-        j--;
-        
-    return(new_str(s1, i, (j - i) + 1));  // Fixed the length calculation
-}
+// 	// Basic test
+// 	s1 = "+++Hello World!!!+++";
+// 	set = "+!";
+// 	res = ft_strtrim(s1, set);
+// 	printf("Input: \"%s\"\n", s1);
+// 	printf("Trim set: \"%s\"\n", set);
+// 	printf("Result: \"%s\"\n\n", res);
+// 	free(res);
+// 	// Test with spaces
+// 	s1 = "   \t  Hello there!  \n ";
+// 	set = " \n\t";
+// 	res = ft_strtrim(s1, set);
+// 	printf("Input: \"%s\"\n", s1);
+// 	printf("Trim set: \"%s\"\n", set);
+// 	printf("Result: \"%s\"\n\n", res);
+// 	free(res);
+// 	// Test: no trimming needed
+// 	s1 = "abcdef";
+// 	set = "xyz";
+// 	res = ft_strtrim(s1, set);
+// 	printf("Input: \"%s\"\n", s1);
+// 	printf("Trim set: \"%s\"\n", set);
+// 	printf("Result: \"%s\"\n\n", res);
+// 	free(res);
+// 	// Test: string is fully trimmed
+// 	s1 = "aaaaaa";
+// 	set = "a";
+// 	res = ft_strtrim(s1, set);
+// 	printf("Input: \"%s\"\n", s1);
+// 	printf("Trim set: \"%s\"\n", set);
+// 	printf("Result: \"%s\"\n\n", res);
+// 	free(res);
+// 	// Test: empty string
+// 	s1 = "";
+// 	set = "abc";
+// 	res = ft_strtrim(s1, set);
+// 	printf("Input: \"%s\"\n", s1);
+// 	printf("Trim set: \"%s\"\n", set);
+// 	printf("Result: \"%s\"\n\n", res);
+// 	free(res);
+// 	// Test: trimming nothing
+// 	s1 = "Hello";
+// 	set = "";
+// 	res = ft_strtrim(s1, set);
+// 	printf("Input: \"%s\"\n", s1);
+// 	printf("Trim set: \"%s\"\n", set);
+// 	printf("Result: \"%s\"\n\n", res);
+// 	free(res);
+// 	return (0);
+// }

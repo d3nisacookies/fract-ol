@@ -1,46 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 14:11:49 by akaung            #+#    #+#             */
-/*   Updated: 2025/11/21 16:18:39 by akaung           ###   ########.fr       */
+/*   Created: 2025/11/21 13:36:51 by akaung            #+#    #+#             */
+/*   Updated: 2025/11/21 19:03:29 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+t_list	*ft_lstnew(void *content)
 {
-	int	i;
+	t_list	*node;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	node = (t_list *)malloc(sizeof(t_list));
+	if (!node)
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i--;
+		return (NULL);
 	}
-	return (NULL);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }
 
 // #include <stdio.h>
 
 // int	main(void)
 // {
-// 	char str[] = "Hello world";
-// 	char *result;
+// 	t_list *n;
 
-// 	result = ft_strrchr(str, 'x');
-// 	if (result != NULL)
-// 	{
-// 		printf("letter found at : %s", result);
-// 	}
-// 	else
-// 	{
-// 		printf("letter not found: %s", result);
-// 	}
+// 	n = ft_lstnew("hello");
+// 	printf("%s\n", (char *)n->content);
 // 	return (0);
 // }

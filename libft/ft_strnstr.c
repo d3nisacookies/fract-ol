@@ -1,64 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/19 17:10:17 by akaung            #+#    #+#             */
+/*   Updated: 2025/11/19 19:44:57 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-char *ft_strnstr(const char *haystack, const char *needle, size_t len)
+
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-    size_t i;
-    size_t j;
+	size_t	i;
+	size_t	j;
 
-    i = 0;
-    j = 0;
-
-    if(needle[0] == 0)
-    {
-        return (char *) haystack;
-    }
-    while (haystack[i] && i < len)
-    {
-        while(haystack[i + j] == needle[j] && haystack[i + j] && i + j < len)
-        {
-            j++;
-            if(needle[j] == 0)
-            {
-                return((char *)haystack + i);
-            }
-        }
-        i++;
-        j = 0;
-    }
-    return (0);
+	if (*little == '\0')
+	{
+		return ((char *)big);
+	}
+	i = 0;
+	while (i < len && big[i])
+	{
+		j = 0;
+		while (big[i + j] && little[j] && i + j < len && big[i
+				+ j] == little[j])
+		{
+			j++;
+		}
+		if (!little[j])
+		{
+			return ((char *)&big[i]);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
+// #include <bsd/string.h>
 // #include <stdio.h>
-// #include <string.h>   // for strnstr
 
-// int main(void)
+// int	main(void)
 // {
-//     const char *haystack = "Hello world, welcome!";
-//     const char *needle1 = "world";
-//     const char *needle2 = "welcome";
-//     const char *needle3 = "nope";
-//     const char *needle4 = "";
-    
-//     struct {
-//         const char *needle;
-//         size_t len;
-//     } tests[] = {
-//         {needle1, 20},   // should find "world"
-//         {needle2, 20},   // should find "welcome"
-//         {needle2, 10},   // too short, should return NULL
-//         {needle3, 20},   // not found
-//         {needle4, 20},   // empty needle
-//     };
+// 	const char *text = "This is a test string.";
+// 	const char *search = "test";
+// 	const char *result;
 
-//     int n = sizeof(tests) / sizeof(tests[0]);
+// 	// Search within the first 10 characters
+// 	result = ft_strnstr(text, search, 10);
+// 	if (result != NULL)
+// 	{
+// 		printf("Found '%s' within the first 10 characters at: %s\n", search,
+// 			result);
+// 	}
+// 	else
+// 	{
+// 		printf("'%s' not found within the first 10 characters.\n", search);
+// 	}
 
-//     for (int i = 0; i < n; i++)
-//     {
-//         char *mine = ft_strnstr(haystack, tests[i].needle, tests[i].len);
+// 	// Search within the entire string (or a larger limit)
+// 	result = ft_strnstr(text, search, strlen(text));
+// 	if (result != NULL)
+// 	{
+// 		printf("Found '%s' in the full string at: %s\n", search, result);
+// 	}
+// 	else
+// 	{
+// 		printf("'%s' not found in the full string.\n", search);
+// 	}
 
-//         printf("Test %d: searching \"%s\" in \"%s\" (len=%zu)\n",
-//                i+1, tests[i].needle, haystack, tests[i].len);
-//         printf("  ft_strnstr -> %s\n\n", mine ? mine : "NULL");
-//     }
-
-//     return 0;
+// 	return (0);
 // }

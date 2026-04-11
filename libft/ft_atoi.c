@@ -1,75 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/19 18:20:15 by akaung            #+#    #+#             */
+/*   Updated: 2025/11/21 21:03:14 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int isspace(int c)
+// static int	isspace(int c)
+// {
+// 	if (c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == 32)
+// 	{
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+
+int	ft_atoi(const char *nptr)
 {
-    if (c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == 32)
-    {
-        return (1);
-    }
-    return (0);
-}
+	int	i;
+	int	sign;
+	int	result;
 
-int ft_atoi(const char *str)
-{
-    int result;
-    int sign;
-    int i;
-
-    result = 0;
-    sign = 1;
-    i = 0;
-
-    while(isspace(str[i]))
-        i++;
-    if(str[i] == '+' && str[i + 1] != '-')
-    {
-        i++;
-    }
-    if(str[i] == '-')
-    {
-        sign = -1;
-        i++;
-    }
-    while(str[i] && str[i] >= 48 && str[i] <= 57)
-    {
-        result *= 10;
-        result += str[i] - 48;
-        i++;
-    }
-    result *= sign;
-    return (result);
+	i = 0;
+	sign = 1;
+	result = 0;
+	while (nptr[i] && (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13)))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (result * sign);
 }
 
 // #include <stdio.h>
-// #include <stdlib.h>   // for the real atoi
+// #include <stdlib.h>
 
-// int main(void)
+// int	main(void)
 // {
-//     const char *tests[] = {
-//         "42",
-//         "   123",
-//         "\t\n\v\f\r 456",   // with whitespace
-//         "-789",
-//         "+1011",
-//         "   -0012",
-//         "999999999",
-//         "abc42",            // non-digit start
-//         "42abc",            // digits then letters
-//         "",
-//         "   + 12",          // tricky case: plus with space
-//     };
+// 	char str1[] = "12345";
+// 	char str2[] = " -6789";
+// 	char str3[] = "abc123";
+// 	char str4[] = "   a+987";
 
-//     int n = sizeof(tests) / sizeof(tests[0]);
+// 	int num1 = ft_atoi(str1);
+// 	int num2 = ft_atoi(str2);
+// 	int num3 = ft_atoi(str3);
+// 	int num4 = ft_atoi(str4);
 
-//     for (int i = 0; i < n; i++)
-//     {
-//         int std = atoi(tests[i]);
-//         int mine = ft_atoi(tests[i]);
+// 	printf("String \"%s\" converted to integer: %d\n", str1, num1);
+// 	printf("String \"%s\" converted to integer: %d\n", str2, num2);
+// 	printf("String \"%s\" converted to integer: %d\n", str3, num3);
+// 	printf("String \"%s\" converted to integer: %d\n", str4, num4);
 
-//         printf("Test %2d: \"%s\"\n", i+1, tests[i]);
-//         printf("  atoi    -> %d\n", std);
-//         printf("  ft_atoi -> %d\n\n", mine);
-//     }
-
-//     return 0;
+// 	return (0);
 // }

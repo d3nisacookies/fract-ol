@@ -1,46 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 14:11:49 by akaung            #+#    #+#             */
-/*   Updated: 2025/11/21 16:18:39 by akaung           ###   ########.fr       */
+/*   Created: 2025/11/21 13:43:44 by akaung            #+#    #+#             */
+/*   Updated: 2025/11/21 19:07:19 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	i;
-
-	i = ft_strlen(s);
-	while (i >= 0)
+	if (!lst || !new)
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i--;
+		return ;
 	}
-	return (NULL);
+	new->next = *lst;
+	*lst = new;
 }
 
 // #include <stdio.h>
 
 // int	main(void)
 // {
-// 	char str[] = "Hello world";
-// 	char *result;
+// 	t_list *head;
+// 	t_list *n1;
+// 	t_list *n2;
 
-// 	result = ft_strrchr(str, 'x');
-// 	if (result != NULL)
-// 	{
-// 		printf("letter found at : %s", result);
-// 	}
-// 	else
-// 	{
-// 		printf("letter not found: %s", result);
-// 	}
+// 	head = NULL;
+// 	n1 = ft_lstnew("Hello ");
+// 	n2 = ft_lstnew("World !");
+
+// 	ft_lstadd_front(&head, n2);
+// 	ft_lstadd_front(&head, n1);
+
+// 	printf("list 1 : %s\nlist 2 : %s\n", (char *)head->content,
+// 		(char *)head->next->content);
 // 	return (0);
 // }
