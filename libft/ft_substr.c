@@ -2,31 +2,33 @@
 
 char *ft_substr(const char *s, unsigned int start, size_t len)
 {
-    char *dest;
-    size_t i;
+    char    *dest;
+    size_t  i;
+    size_t  s_len;
 
-    if(!s)
+    if (!s)
     {
-        return NULL;
+        return (NULL);
     }
-    if(start > ft_strlen(s))
+    s_len = ft_strlen(s);
+    if (start > s_len)
     {
-        return(ft_strdup(""));
+        return (ft_strdup(""));
     }
-    if(len > ft_strlen(s) + start)
+    if (len > s_len - start)
     {
-        len = ft_strlen(s) + start;
+        len = s_len - start;
     }
     dest = ft_calloc(len + 1, sizeof(char));
     if (!dest)
     {
-        return NULL;
+        return (NULL);
     }
     i = 0;
-    while(i < len)
+    while (i < len)
     {
         dest[i] = s[start + i];
         i++;
     }
-    return dest;
+    return (dest);
 }

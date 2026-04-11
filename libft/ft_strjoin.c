@@ -9,10 +9,12 @@ char    *ft_strjoin(const char *s1, const char *s2)
     i = 0;
     j = 0;
 
-    result = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
+    if (!s1 || !s2)
+        return (NULL);
+    result = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
     if (!result)
     {
-        return NULL;
+        return (NULL);
     }
     while (s1[i])
     {
